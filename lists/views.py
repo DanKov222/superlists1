@@ -1,8 +1,8 @@
 from django.shortcuts import render
 
 
-def home_page():
+def home_page(request):
     """Домашняя страница"""
-    pass
+    return render(request, 'lists/home_page.html',)
 
 
