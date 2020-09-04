@@ -1,5 +1,7 @@
 from django.test import TestCase
 from django.urls import resolve
+from django.http import HttpRequest
+
 from .views import home_page
 
 
@@ -11,3 +13,10 @@ class HomePageTest(TestCase):
         found = resolve('/')
         self.assertEqual(found.func, home_page)
 
+
+class HomePageTest(TestCase):
+    """Тест: домашняя страница возвращает правильный html"""
+    request = HttpRequest()    # То что Django увидит когда пользователь запросит страницу
+    response = home_page(request)
+    html = response.content.decode('utf8')
+    self.assertIn('<title>To-Do lists</title>', html)
