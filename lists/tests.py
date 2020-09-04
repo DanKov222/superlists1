@@ -13,10 +13,9 @@ class HomePageTest(TestCase):
         found = resolve('/')
         self.assertEqual(found.func, home_page)
 
-
-class HomePageTest(TestCase):
-    """Тест: домашняя страница возвращает правильный html"""
-    request = HttpRequest()    # То что Django увидит когда пользователь запросит страницу
-    response = home_page(request)
-    html = response.content.decode('utf8')
-    self.assertIn('<title>To-Do lists</title>', html)
+    def test_home_page_returns_correct_html(self):
+        """Тест: домашняя страница возвращает правильный html"""
+        request = HttpRequest()  # То что Django увидит когда пользователь запросит страницу
+        response = home_page(request)
+        html = response.content.decode('utf8')
+        self.assertIn('<title>To-Do lists</title>', html)
