@@ -1,3 +1,6 @@
 from django.db import models
 
-# Create your models here.
+
+class Item(models.Model):
+    """Элементы списка"""
+    text = models.TextField(default='')
