@@ -10,10 +10,12 @@
 <body>
 
 <h1>Your To-Do lists</h1>
-<form method="post" action="">
+<form method="post" action="{% url 'home_url' %}">
     {% csrf_token %}
     <input name="item_text" id="id_new_item" placeholder="Enter a to-do item">
 </form>
+
+<h1>{{ new_item_text }}</h1>
 
 <table id="id_list_table">
     <tr><td>{{ new_item_text }}</td></tr>
