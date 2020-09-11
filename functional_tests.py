@@ -35,7 +35,9 @@ class NewVisitorTest(unittest.TestCase):
         inputbox.send_keys('Купить павлиньи перья')    # selenium - input
         inputbox.send_keys(Keys.ENTER)
         time.sleep(1)
+
         self.check_for_row_in_list_table('1: Купить павлиньи перья')
+        inputbox = self.browser.find_element_by_id('id_new_item')
         inputbox.send_keys('Сделать мушку')
         inputbox.send_keys(Keys.ENTER)
         time.sleep(1)
