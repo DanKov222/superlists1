@@ -1,10 +1,10 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
-import unittest
+from django.test import LiveServerTestCase
 
 
-class NewVisitorTest(unittest.TestCase):
+class NewVisitorTest(LiveServerTestCase):
     """Тест нового пользователя"""
 
     def setUp(self):
@@ -24,7 +24,7 @@ class NewVisitorTest(unittest.TestCase):
 
     def test_can_start_a_list_and_retrieve_it_later(self):
         """Тест: можно ли начать список и получить его позже"""
-        self.browser.get('http://127.0.0.1:8000/')
+        self.browser.get(self.live_server_url)
 
         self.assertIn('To-Do lists', self.browser.title)
         header_text = self.browser.find_element_by_tag_name('h1').text
@@ -46,7 +46,3 @@ class NewVisitorTest(unittest.TestCase):
         self.check_for_row_in_list_table('2: Сделать мушку')
 
         self.fail('Закончить тест!')
-
-
-if __name__ == '__main__':
-    unittest.main(warnings='ignore')
