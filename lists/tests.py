@@ -3,7 +3,7 @@ from django.urls import resolve
 from django.http import HttpRequest
 from django.template.loader import render_to_string
 
-from lists.models import Item
+from .models import Item
 
 from .views import home_page
 
