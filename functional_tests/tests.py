@@ -55,3 +55,33 @@ class NewVisitorTest(LiveServerTestCase):
         self.wait_for_row_in_list_table('2: Сделать мушку')
 
         self.fail('Закончить тест!')
+
+    def test_multiple_users_can_start_lists_at_different_urls(self):
+        """Тест: можно начать свой список для двух и более пользователей по своим url"""
+        self.browser.get(self.live_server_url)
+        inputbox = self.browser.find_element_by_id('id_new_item')
+        inputbox.send_keys('row 1')
+        inputbox.send_keys(Keys.ENTER)
+        self.wait_for_row_in_list_table('1: row 1')
+
+        first_list_url = self.browser.current_url
+        self.assertRegex(first_list_url, '/lists/.+')
+        self.browser.quit()
+        self.browser = webdriver.Firefox()
+
+        # другой пользователь хочет создать свой список дел
+        self.browser.get(self.live_server_url)
+        page_text = self.browser.find_element_by_tag_name('body').text
+        self.assertNotIn('row 1', page_text)
+
+        inputbox = self.browser.find_element_by_id('if_new_item')
+        inputbox.send_keys('row 2')
+        inputbox.send_keys(Keys.ENTER)
+        self.wait_for_row_in_list_table('1: row 2')
+
+        second_list_url = self.browser.current_url
+        self.assertRegex(second_list_url, '/lists/.+')
+        self.assertNotEqual(second_list_url, first_list_url)
+
+        page_text = self.browser.find_element_by_tag_name('body').text
+        self.assertNotIn('row 1', page_text)
