@@ -74,7 +74,7 @@ class NewVisitorTest(LiveServerTestCase):
         page_text = self.browser.find_element_by_tag_name('body').text
         self.assertNotIn('row 1', page_text)
 
-        inputbox = self.browser.find_element_by_id('if_new_item')
+        inputbox = self.browser.find_element_by_id('id_new_item')
         inputbox.send_keys('row 2')
         inputbox.send_keys(Keys.ENTER)
         self.wait_for_row_in_list_table('1: row 2')
